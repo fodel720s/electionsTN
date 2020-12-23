@@ -1,0 +1,32 @@
+<div class="body">
+    <div class="row col-md-12">
+        <div class="col-md-12">
+            <div class="row">
+                <h1 class="center">
+                    Inscription
+                </h1>
+            </div>
+            <div class="container col-md-12" novalidate>
+                <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+                    <mat-form-field class="form-element">
+                        <input matInput placeholder="Numéro carte d'identité nationale" formControlName="cin">
+                        <mat-error *ngIf="!cin.valid && cin.touched">
+                            {{ titleAlert }}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="form-element">
+                        <input matInput placeholder="Nom Complet" formControlName="nom_e">
+                        <mat-error *ngIf="!nom.valid && nom.touched">
+                            {{ titleAlert }}
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="form-element">
+                        <button mat-raised-button color="primary" type="submit" class="button"
+                            [disabled]="!formGroup.valid">S'inscrire</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

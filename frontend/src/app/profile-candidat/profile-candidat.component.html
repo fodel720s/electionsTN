@@ -1,0 +1,25 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{candidat.nom}} {{candidat.prenom}}</mat-card-title>
+        <mat-card-subtitle>Vous avez choisit ce candidat</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image
+        src="https://images.all-free-download.com/images/graphicthumb/job_interview_background_candidate_icon_cartoon_character_6838338.jpg">
+    <mat-card-content>
+        <p>
+            {{candidat.nom}} {{candidat.prenom}} est né(e) le {{candidat.birthday}} ,
+            {{candidat.appartientpartie ? 'appartient a un parti.' : 'est un candidat libre.'}}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button *ngIf="!electeur.candidat_choisit" (click)="vote()" mat-raised-button color="primary">VOTER</button>
+        <button (click)="goBack()" mat-raised-button color="warn">ANNULER</button>
+        <a [href]="candidat.fb_link" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">facebook</mat-icon>
+        </a>
+        <a [href]="candidat.twe_link" mat-mini-fab aria-label="Example icon button with a menu icon">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">question_answer</mat-icon>
+        </a>
+    </mat-card-actions>
+</mat-card>

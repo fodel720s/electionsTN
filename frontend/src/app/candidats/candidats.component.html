@@ -1,0 +1,109 @@
+<div class="body">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <h1 class="center">
+          Ajouter un candidat
+        </h1>
+      </div>
+      <div class="container" *ngIf="!post; else forminfo" novalidate>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Prenom Candidat" formControlName="prenom">
+            <mat-error *ngIf="!prenom.valid && prenom.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Nom Candidat" formControlName="nom">
+            <mat-error *ngIf="!nom.valid && nom.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Date de naissance" [matDatepicker]="picker" formControlName="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="!birthday.valid && birthday.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Rang dans la liste" formControlName="rank_List">
+            <mat-error *ngIf="!rank_List.valid && rank_List.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Lien compte facebook" formControlName="fb_link">
+            <mat-error *ngIf="!fb_link.valid && fb_link.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="form-element">
+            <input matInput placeholder="Lien compte Twitter" formControlName="twe_link">
+            <mat-error *ngIf="!twe_link.valid && twe_link.touched">
+              {{ titleAlert }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="form-element">
+            <mat-checkbox formControlName="appartientpartie" value="1">Appartient a un parti</mat-checkbox>
+          </div>
+
+          <div class="form-element">
+            <button mat-raised-button color="primary" type="submit" class="button"
+              [disabled]="!formGroup.valid">Valider</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <h1>Liste des candidats</h1>
+      <table mat-table [dataSource]="ELEMENT_DATA" class="col-md-12">
+        <ng-container matColumnDef="No">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.code_C}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef> Nom </th>
+          <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef> Prenom </th>
+          <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="rang">
+          <th mat-header-cell *matHeaderCellDef> Rang </th>
+          <td mat-cell *matCellDef="let element"> {{element.rank_List}} </td>
+        </ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="edit(element)" mat-mini-fab color="primary"
+              aria-label="Example icon button with a menu icon">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">edit</mat-icon>
+            </button>
+            <button (click)="delete(element)" mat-mini-fab color="accent"
+              aria-label="Example icon button with a menu icon">
+              <mat-icon aria-hidden="false" aria-label="Example home icon">delete</mat-icon>
+            </button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="row center">
+    <div class="col-md-12">
+        <mat-form-field class="col-md-6" appearance="fill">
+            <mat-label>Electeur</mat-label>
+            <mat-select [(ngModel)]="selectedElecteur">
+                <mat-option *ngFor="let e of electeurs" [value]="e">
+                    {{e.nom_e}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button (click)="checkVoter()" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">send</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="row center" *ngIf="candidats.length > 0 && !choosenCandidat">
+    <div class="col-md-12">
+        <h1>choisir un candidat</h1>
+        <h6>Vous n'avez pas encore voté.</h6>
+        <table mat-table [dataSource]="candidats" class="col-md-12">
+            <ng-container matColumnDef="No">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.code_C}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="prenom">
+                <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+            </ng-container>
+            <ng-container matColumnDef="date naissance">
+                <th mat-header-cell *matHeaderCellDef> Date de naissance </th>
+                <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="rang">
+                <th mat-header-cell *matHeaderCellDef> Rang </th>
+                <td mat-cell *matCellDef="let element"> {{element.rank_List}} </td>
+            </ng-container>
+            <ng-container matColumnDef="appartien parti">
+                <th mat-header-cell *matHeaderCellDef> Parti politique</th>
+                <td mat-cell *matCellDef="let element"> {{element.appartientpartie ? 'oui' : 'non'}} </td>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Choisir </th>
+                <td mat-cell *matCellDef="let element">
+                    <button (click)="choose(element)" mat-mini-fab color="primary"
+                        aria-label="Example icon button with a menu icon">
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">record_voice_over</mat-icon>
+                    </button> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+    </div>
+</div>
+<div class="col-md-12" *ngIf="choosenCandidat">
+    <app-profile-candidat (goBackAction)="cancelVote($event)" [electeur]="selectedElecteur"
+        [candidat]="choosenCandidat"></app-profile-candidat>
+</div>
